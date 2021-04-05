@@ -6,36 +6,33 @@ import {
     ModelCtor,
     HasManyGetAssociationsMixin, HasManyAddAssociationMixin
 } from "sequelize";
-import {SessionInstance} from "./session.model";
 import {TicketInstance} from "./ticket.model";
 
-export interface UserProps {
+export interface TicketTypeProps {
     id: number;
-    password: string;
-    email: string;
+    name: string;
+    price: number;
 }
 
-export interface UserCreationProps extends Optional<UserProps, "id"> {}
+export interface TicketTypeCreationProps extends Optional<TicketTypeProps, "id"> {}
 
-export interface UserInstance extends Model<UserProps, UserCreationProps>, UserProps {
-    getSessions: HasManyGetAssociationsMixin<SessionInstance>;
-    addSession: HasManyAddAssociationMixin<SessionInstance, "id">;
+export interface TicketTypeInstance extends Model<TicketTypeProps, TicketTypeCreationProps>, TicketTypeProps {
     getTickets: HasManyGetAssociationsMixin<TicketInstance>;
     addTicket: HasManyAddAssociationMixin<TicketInstance, "id">;
 }
 
-export default function(sequelize: Sequelize): ModelCtor<UserInstance> {
-    return sequelize.define<UserInstance>("User", {
+export default function(sequelize: Sequelize): ModelCtor<TicketTypeInstance> {
+    return sequelize.define<TicketTypeInstance>("Ticket_type", {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        password: {
+        name: {
             type: DataTypes.STRING
         },
-        email: {
-            type: DataTypes.STRING
+        price: {
+            type: DataTypes.DOUBLE
         }
     }, {
         freezeTableName: true,
