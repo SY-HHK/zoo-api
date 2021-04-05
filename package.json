@@ -4,6 +4,7 @@
   "description": "Zoo api with node and typescript",
   "main": "index.js",
   "scripts": {
+    "create-schema": "ts-node commands/create-schema.ts",
     "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
