@@ -18,5 +18,5 @@ npm install
 Init database
 
 ```shell
-npm run schema-create
+npm run create-schema
 ```
