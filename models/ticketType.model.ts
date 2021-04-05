@@ -12,6 +12,7 @@ export interface TicketTypeProps {
     id: number;
     name: string;
     price: number;
+    data: JSON;
 }
 
 export interface TicketTypeCreationProps extends Optional<TicketTypeProps, "id"> {}
@@ -33,6 +34,9 @@ export default function(sequelize: Sequelize): ModelCtor<TicketTypeInstance> {
         },
         price: {
             type: DataTypes.DOUBLE
+        },
+        data: {
+            type: DataTypes.JSON
         }
     }, {
         freezeTableName: true,
