@@ -3,9 +3,6 @@ import {AuthController} from "../controllers/auth.controller";
 
 /**
  * Check if token is valid
- * @param req
- * @param res
- * @param next
  */
 export async function authMiddleware(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     const auth = req.headers["authorization"];
@@ -27,9 +24,6 @@ export async function authMiddleware(req: express.Request, res: express.Response
 
 /**
  * Check if token belongs to an admin
- * @param req
- * @param res
- * @param next
  */
 export async function adminMiddleware(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     const auth = req.headers["authorization"];
