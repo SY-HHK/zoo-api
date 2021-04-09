@@ -31,7 +31,7 @@ authRouter.post("/subscribe",
 });
 
 /**
- * Login a user by creating a token
+ * Login a user by creating a session
  * @return token
  */
 authRouter.post("/login", async function (req, res) {
@@ -54,7 +54,7 @@ authRouter.post("/login", async function (req, res) {
 });
 
 /**
- * Logout a user by  deleting his token
+ * Logout a user by deleting his session
  */
 authRouter.delete("/logout", authMiddleware, async function (req, res) {
     const authController = await AuthController.getInstance();

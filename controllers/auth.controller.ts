@@ -77,8 +77,6 @@ export class AuthController {
 
     /**
      * Return true if user.worker.role.name === 'admin' else return false
-     * @return boolean
-     * @param session
      */
     public async isAdmin(session: SessionInstance): Promise<boolean> {
         const user: UserInstance = await session.getUser();
