@@ -4,6 +4,10 @@ import {authMiddleware} from "../middlewares/auth.middleware";
 
 const authRouter = express.Router();
 
+/**
+ * Create a simple user
+ * @return user
+ */
 authRouter.post("/subscribe",
     async function (req, res) {
         const password = req.body.password;
@@ -24,8 +28,12 @@ authRouter.post("/subscribe",
         } else {
             res.status(409).end();
         }
-    });
+});
 
+/**
+ * Login a user by creating a token
+ * @return token
+ */
 authRouter.post("/login", async function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
@@ -45,6 +53,9 @@ authRouter.post("/login", async function (req, res) {
     }
 });
 
+/**
+ * Logout a user by  deleting his token
+ */
 authRouter.delete("/logout", authMiddleware, async function (req, res) {
     const authController = await AuthController.getInstance();
     const isDeleted = await authController.deleteSession(req.headers["authorization"]);

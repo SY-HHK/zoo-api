@@ -8,6 +8,7 @@ const userRouter = express.Router();
 
 /**
  * Create a simple user
+ * @return user
  */
 userRouter.post("/create", adminMiddleware, async function(req, res) {
     const email: string = req.body.email;
@@ -27,6 +28,7 @@ userRouter.post("/create", adminMiddleware, async function(req, res) {
 
 /**
  * Get a user by id
+ * @return user
  */
 userRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
@@ -41,6 +43,7 @@ userRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(re
 
 /**
  * Update a user by id
+ * @return user
  */
 userRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
