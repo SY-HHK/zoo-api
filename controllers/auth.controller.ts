@@ -3,6 +3,8 @@ import {UserCreationProps, UserInstance} from "../models/user.model";
 import {SessionInstance} from "../models/session.model";
 import {SequelizeManager} from "../models";
 import {compare, hash} from "bcrypt";
+import {WorkerInstance} from "../models/worker.model";
+import {RoleInstance} from "../models/role.model";
 
 export class AuthController {
 
@@ -60,5 +62,34 @@ export class AuthController {
                 token
             }
         });
+    }
+
+    public async deleteSession(token?: string): Promise<boolean> {
+        const session = await this.Session.findOne({
+            where: {
+                token
+            }
+        });
+        if (session === null) return false;
+        await session.destroy();
+        return true;
+    }
+
+    /**
+     * Return true if user.worker.role.name === 'admin' else return false
+     * @return boolean
+     * @param session
+     */
+    public async isAdmin(session: SessionInstance): Promise<boolean> {
+        const user: UserInstance = await session.getUser();
+        const worker: WorkerInstance = await user.getWorker();
+        if (worker === null) {
+            return false;
+        }
+        const workerRole: RoleInstance = await worker.getRole();
+        if (workerRole === null) {
+            return false;
+        }
+        return workerRole.name === 'admin';
     }
 }
