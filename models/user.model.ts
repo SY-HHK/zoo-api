@@ -4,10 +4,11 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    HasManyGetAssociationsMixin, HasManyAddAssociationMixin
+    HasManyGetAssociationsMixin, HasManyAddAssociationMixin, HasOneGetAssociationMixin, HasOneSetAssociationMixin
 } from "sequelize";
 import {SessionInstance} from "./session.model";
 import {TicketInstance} from "./ticket.model";
+import {WorkerInstance} from "./worker.model";
 
 export interface UserProps {
     id: number;
@@ -22,6 +23,8 @@ export interface UserInstance extends Model<UserProps, UserCreationProps>, UserP
     addSession: HasManyAddAssociationMixin<SessionInstance, "id">;
     getTickets: HasManyGetAssociationsMixin<TicketInstance>;
     addTicket: HasManyAddAssociationMixin<TicketInstance, "id">;
+    getWorker: HasOneGetAssociationMixin<WorkerInstance>;
+    setWorker: HasOneSetAssociationMixin<WorkerInstance, "id">;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<UserInstance> {
