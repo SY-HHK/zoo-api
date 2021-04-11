@@ -7,4 +7,5 @@ export function buildRoutes(app: Express) {
     app.use("/auth", authRouter);
     app.use("/admin/user", userRouter);
     app.use("/admin/worker", workerRouter);
+    app.use("/admin/role", workerRouter);
 }
