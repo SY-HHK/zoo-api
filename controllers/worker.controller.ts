@@ -40,8 +40,8 @@ export class WorkerController {
         if (user === null || role === null) {
             return null;
         }
-        const oldWorker = await user.getWorker();
-        if (oldWorker) {
+        const alreadyExist = await user.getWorker();
+        if (alreadyExist !== null) {
             return null;
         }
         const worker: WorkerInstance | null = await this.Worker.create({
@@ -64,11 +64,7 @@ export class WorkerController {
     }
 
     public async update(id: number, props: WorkerCreationProps, userId: number, roleId: number): Promise<WorkerInstance | null> {
-        const worker: WorkerInstance |null = await this.Worker.findOne({
-            where: {
-                id
-            }
-        });
+        const worker: WorkerInstance |null = await this.read(id);
         if (worker === null) {
             return null;
         }
@@ -96,11 +92,7 @@ export class WorkerController {
     }
 
     public async delete(id: number): Promise<boolean> {
-        const worker: WorkerInstance | null = await this.Worker.findOne({
-            where: {
-                id
-            }
-        });
+        const worker: WorkerInstance | null = await this.read(id);
         if (worker === null) {
             return false;
         }
