@@ -3,7 +3,6 @@ import {adminMiddleware} from "../../middlewares/auth.middleware";
 import {checkIdMiddleware} from "../../middlewares/utils.middleware";
 import {RoleController} from "../../controllers/role.controller";
 import {RoleInstance} from "../../models/role.model";
-import {UserController} from "../../controllers/user.controller";
 
 const roleRouter = express.Router();
 
@@ -66,8 +65,8 @@ roleRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function
  */
 roleRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
-    const userController: UserController = await UserController.getInstance();
-    const isDeleted: boolean = await userController.delete(id);
+    const roleController: RoleController = await RoleController.getInstance();
+    const isDeleted: boolean = await roleController.delete(id);
     if (!isDeleted) {
         res.status(404).end();
         return;
