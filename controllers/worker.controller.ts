@@ -40,6 +40,10 @@ export class WorkerController {
         if (user === null || role === null) {
             return null;
         }
+        const oldWorker = await user.getWorker();
+        if (oldWorker) {
+            return null;
+        }
         const worker: WorkerInstance | null = await this.Worker.create({
             ...props
         });
