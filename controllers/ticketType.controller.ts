@@ -56,11 +56,7 @@ export class TicketTypeController {
     }
 
     public async delete(id: number): Promise<boolean> {
-        const ticketType: TicketTypeInstance | null = await this.TicketType.findOne({
-            where: {
-                id
-            }
-        });
+        const ticketType: TicketTypeInstance | null = await this.read(id);
         if (ticketType === null) {
             return false;
         }
