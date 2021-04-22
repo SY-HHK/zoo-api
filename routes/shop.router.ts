@@ -1,5 +1,5 @@
 import express from "express";
-import {authMiddleware} from "../middlewares/auth.middleware";
+import {authMiddleware, shopMiddleware} from "../middlewares/auth.middleware";
 import {ShopController} from "../controllers/shop.controller";
 import {checkIdMiddleware} from "../middlewares/utils.middleware";
 import {TicketInstance} from "../models/ticket.model";
@@ -34,7 +34,7 @@ shopRouter.post("/buy", authMiddleware, async function (req, res) {
  * get a ticket by id
  * @return ticket
  */
-shopRouter.get("/get/:id", authMiddleware, checkIdMiddleware, async function (req, res) {
+shopRouter.get("/get/:id", checkIdMiddleware, authMiddleware, async function (req, res) {
     const id: number = parseInt(req.params.id);
     const shopController: ShopController = await ShopController.getInstance();
     const ticket: TicketInstance | null = await shopController.read(id);
@@ -49,7 +49,7 @@ shopRouter.get("/get/:id", authMiddleware, checkIdMiddleware, async function (re
  * transfer a ticket to another user
  * @return ticket
  */
-shopRouter.put("/give", authMiddleware, checkIdMiddleware, async function (req, res) {
+shopRouter.put("/give/:id", checkIdMiddleware, shopMiddleware, async function (req, res) {
     const id: number = parseInt(req.params.id, 10);
     const userId: number = parseInt(req.body.userId, 10);
     if (userId === undefined) {
@@ -69,7 +69,7 @@ shopRouter.put("/give", authMiddleware, checkIdMiddleware, async function (req, 
  * cancel a user's ticket
  * @return void
  */
-shopRouter.delete("/cancel", authMiddleware, checkIdMiddleware, async function (req, res) {
+shopRouter.delete("/cancel/:id", checkIdMiddleware, shopMiddleware, async function (req, res) {
     const id: number = parseInt(req.params.id, 10);
     const shopController: ShopController = await ShopController.getInstance();
     const isDeleted: boolean = await shopController.cancel(id);
