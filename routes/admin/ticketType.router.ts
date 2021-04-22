@@ -74,6 +74,7 @@ ticketTypeRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async
     const isDeleted = ticketTypeController.delete(id);
     if (!isDeleted) {
         res.status(404).end();
+        return;
     }
     res.status(200).end();
 });
