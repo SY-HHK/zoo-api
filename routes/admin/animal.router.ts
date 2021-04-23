@@ -33,7 +33,7 @@ animalRouter.post("/create", adminMiddleware, async function(req, res) {
  * @return role
  */
 animalRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
-    const id: number = parseInt(req.body.id, 10);
+    const id: number = parseInt(req.params.id, 10);
     const animalController: AnimalController = await AnimalController.getInstance();
     const animal: AnimalInstance | null = await animalController.read(id);
     if (animal === null) {
@@ -48,7 +48,7 @@ animalRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(
  * @return role
  */
 animalRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
-    const id: number = parseInt(req.body.id, 10);
+    const id: number = parseInt(req.params.id, 10);
     const name: string = req.body.name;
     const species: string = req.body.species;
     const journal: string = req.body.journal;
@@ -70,7 +70,7 @@ animalRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async functi
  * Delete an animal by id
  */
 animalRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
-    const id: number = parseInt(req.body.id, 10);
+    const id: number = parseInt(req.params.id, 10);
     const animalController: AnimalController = await AnimalController.getInstance();
     const isDeleted: boolean = await animalController.delete(id);
     if (!isDeleted) {
