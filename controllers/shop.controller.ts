@@ -41,19 +41,19 @@ export class ShopController {
         if (ticketType === null || user === null) {
             return null;
         }
-        const ticket: TicketInstance |null = await this.Ticket.create({
+        const ticket: TicketInstance | null = await this.Ticket.create({
             ...props
         });
         if (ticket === null) {
             return null;
         }
-        await ticket.setType(ticketType);
+        await ticket.setTicket_type(ticketType);
         await ticket.setUser(user);
         return ticket;
     }
 
     public async read(id: number): Promise<TicketInstance | null> {
-        return this.Ticket.findOne({
+        return await this.Ticket.findOne({
             where: {
                 id
             }

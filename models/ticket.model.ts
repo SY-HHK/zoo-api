@@ -5,8 +5,7 @@ import {
     DataTypes,
     ModelCtor,
     BelongsToSetAssociationMixin,
-    BelongsToGetAssociationMixin,
-    HasOneSetAssociationMixin, HasOneGetAssociationMixin
+    BelongsToGetAssociationMixin
 } from "sequelize";
 import {UserInstance} from "./user.model";
 import {TicketTypeInstance} from "./ticketType.model";
@@ -22,8 +21,8 @@ export interface TicketCreationProps extends Optional<TicketProps, "id"> {}
 export interface TicketInstance extends Model<TicketProps, TicketCreationProps>, TicketProps {
     setUser: BelongsToSetAssociationMixin<UserInstance, "id">;
     getUser: BelongsToGetAssociationMixin<UserInstance>;
-    getType: HasOneGetAssociationMixin<TicketTypeInstance>;
-    setType: HasOneSetAssociationMixin<TicketTypeInstance, "id">;
+    setTicket_type: BelongsToSetAssociationMixin<TicketTypeInstance, "id">;
+    getTicket_type: BelongsToGetAssociationMixin<TicketTypeInstance>;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<TicketInstance> {

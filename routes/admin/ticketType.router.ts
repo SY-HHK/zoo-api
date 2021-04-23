@@ -71,7 +71,7 @@ ticketTypeRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async fu
 ticketTypeRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
     const ticketTypeController: TicketTypeController = await TicketTypeController.getInstance();
-    const isDeleted = ticketTypeController.delete(id);
+    const isDeleted: boolean = await ticketTypeController.delete(id);
     if (!isDeleted) {
         res.status(404).end();
         return;
