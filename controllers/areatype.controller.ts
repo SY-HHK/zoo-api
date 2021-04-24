@@ -55,4 +55,25 @@ export class AreaTypeController {
         });
     }
 
+    public async update(id: number, props: AreaTypeCreationProps): Promise<AreaTypeInstance | null> {
+        const areaType: AreaTypeInstance | null = await this.AreaType.findOne({
+            where:{
+                id
+            }
+        });
+        if(areaType == null) return null;
+
+        areaType.name = props.name;
+
+        return await areaType.save();
+    }
+
+    public async delete(id: number): Promise<AreaTypeInstance | null> {
+        return await this.AreaType.findOne({
+            where: {
+                id
+            }
+        });
+    }
+
 }
