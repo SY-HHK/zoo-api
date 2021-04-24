@@ -8,7 +8,7 @@ const animalRouter = express.Router();
 
 /**
  * Create a simple animal
- * @return role
+ * @return animal
  */
 animalRouter.post("/create", adminMiddleware, async function(req, res) {
     const name: string = req.body.name;
@@ -30,7 +30,7 @@ animalRouter.post("/create", adminMiddleware, async function(req, res) {
 
 /**
  * Get an animal by id
- * @return role
+ * @return animal
  */
 animalRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
@@ -45,7 +45,7 @@ animalRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(
 
 /**
  * Update an animal by id
- * @return role
+ * @return animal
  */
 animalRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
@@ -68,6 +68,7 @@ animalRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async functi
 
 /**
  * Delete an animal by id
+ * @return void
  */
 animalRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);

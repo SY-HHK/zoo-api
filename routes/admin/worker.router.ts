@@ -66,6 +66,7 @@ workerRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async functi
 
 /**
  * Delete a worker by id
+ * @return void
  */
 workerRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id);
