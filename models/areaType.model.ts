@@ -30,7 +30,8 @@ export default function(sequelize: Sequelize): ModelCtor<AreaTypeInstance> {
         name: {
             type: DataTypes.STRING
         }
-    }, {
+    },
+        {
         freezeTableName: true,
         underscored: true,
         paranoid: true,
