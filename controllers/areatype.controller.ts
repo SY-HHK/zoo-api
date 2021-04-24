@@ -47,4 +47,12 @@ export class AreaTypeController {
 
     }
 
+    public async read(id: number): Promise<AreaTypeInstance | null> {
+        return await this.AreaType.findOne({
+            where: {
+                id
+            }
+        });
+    }
+
 }
