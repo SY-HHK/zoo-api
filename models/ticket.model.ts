@@ -9,6 +9,7 @@ import {
 } from "sequelize";
 import {UserInstance} from "./user.model";
 import {TicketTypeInstance} from "./ticketType.model";
+import {AreaInstance} from "./area.model";
 
 export interface TicketProps {
     id: number;
@@ -23,6 +24,8 @@ export interface TicketInstance extends Model<TicketProps, TicketCreationProps>,
     getUser: BelongsToGetAssociationMixin<UserInstance>;
     setTicket_type: BelongsToSetAssociationMixin<TicketTypeInstance, "id">;
     getTicket_type: BelongsToGetAssociationMixin<TicketTypeInstance>;
+    setCurrentArea: BelongsToSetAssociationMixin<AreaInstance, 'id'>;
+    getCurrentArea: BelongsToGetAssociationMixin<AreaInstance>;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<TicketInstance> {
