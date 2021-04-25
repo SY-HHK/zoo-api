@@ -1,8 +1,8 @@
 import express from "express";
-import {adminMiddleware} from "../middlewares/auth.middleware";
-import {AreaController} from "../controllers/area.controller";
-import {AreaInstance} from "../models/area.model";
-import {checkIdMiddleware} from "../middlewares/utils.middleware";
+import {adminMiddleware} from "../../middlewares/auth.middleware";
+import {AreaController} from "../../controllers/area.controller";
+import {AreaInstance} from "../../models/area.model";
+import {checkIdMiddleware} from "../../middlewares/utils.middleware";
 
 const areaRouter = express.Router();
 
@@ -10,7 +10,7 @@ const areaRouter = express.Router();
  * Create a simple area
  * @return area
  */
-areaRouter.post("/createArea", adminMiddleware, async function(req, res) {
+areaRouter.post("/create", adminMiddleware, async function(req, res) {
     const name: string = req.body.name;
     const description: string = req.body.description;
     const capacity: number = req.body.capacity;
@@ -37,7 +37,7 @@ areaRouter.post("/createArea", adminMiddleware, async function(req, res) {
  * Get a area by id
  * @return area
  */
-areaRouter.get("/getArea/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
+areaRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
     const areaController: AreaController = await AreaController.getInstance();
     const area: AreaInstance | null = await areaController.read(id);
@@ -52,7 +52,7 @@ areaRouter.get("/getArea/:id", adminMiddleware, checkIdMiddleware, async functio
  * Update a area by id
  * @return area
  */
-areaRouter.put("/updateArea/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
+areaRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
     const name: string = req.body.name;
     const description: string = req.body.description;
@@ -79,7 +79,7 @@ areaRouter.put("/updateArea/:id", adminMiddleware, checkIdMiddleware, async func
 /**
  * Delete a area by id
  */
-areaRouter.delete("/deleteArea/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
+areaRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
     const areaController: AreaController = await AreaController.getInstance();
     const isDeleted = await areaController.delete(id);
