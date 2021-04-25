@@ -8,10 +8,12 @@ import {shopRouter} from "./shop.router";
 import {animalRouter} from "./admin/animal.router";
 import {imageRouter} from "./admin/image.router";
 import {maintenanceRouter} from "./admin/maintenance.router";
+import {visitRouter} from "./visit.router";
 
 export function buildRoutes(app: Express) {
     app.use("/auth", authRouter);
     app.use("/shop", shopRouter);
+    app.use("/visit", visitRouter);
     app.use("/admin/user", userRouter);
     app.use("/admin/worker", workerRouter);
     app.use("/admin/role", roleRouter);
