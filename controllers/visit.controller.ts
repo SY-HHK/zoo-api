@@ -55,10 +55,15 @@ export class VisitController {
 
     public async visit(id: number, nextArea: number): Promise<boolean> {
         const ticket: TicketInstance | null = await this.read(id);
-        if (ticket === null) {
+        const nextAreaInstance: AreaInstance | null = await this.Area.findOne({
+            where: {
+                id: nextArea
+            }
+        });
+        if (ticket === null || nextAreaInstance === null) {
             return false;
         }
-        if (!ticket.active || !this.isValid(ticket)) {
+        if (!ticket.active || !this.isValid(ticket, nextAreaInstance)) {
             return false;
         }
         const ticketType: TicketTypeInstance = await ticket.getTicket_type();
@@ -67,14 +72,6 @@ export class VisitController {
             if (!this.canVisit(ticketType.data.areaOrder, currentArea.id, nextArea)) {
                 return false;
             }
-        }
-        const nextAreaInstance: AreaInstance | null = await this.Area.findOne({
-            where: {
-                id: nextArea
-            }
-        });
-        if (nextAreaInstance === null) {
-            return false;
         }
         await ticket.setCurrentArea(nextAreaInstance);
         await ticket.save();
@@ -89,12 +86,12 @@ export class VisitController {
         });
     }
 
-    private isValid(ticket: TicketInstance, nextArea: AreaInstance): boolean {
+    private isValid(ticket: TicketInstance, nextArea?: AreaInstance): boolean {
         const currentDate: Date = new Date();
         if (ticket.startDate.getTime() > currentDate.getTime() || ticket.endDate.getTime() < currentDate.getTime()) {
             return false;
         }
-        if (nextArea.openAt.getTime() > currentDate.getTime() || nextArea.closeAt.getTime() < currentDate.getTime()) {
+        if (nextArea !== undefined && (nextArea.openAt.getTime() > currentDate.getTime() || nextArea.closeAt.getTime() < currentDate.getTime())) {
             return false;
         }
         return true;
