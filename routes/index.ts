@@ -7,6 +7,7 @@ import {ticketTypeRouter} from "./admin/ticketType.router"
 import {shopRouter} from "./shop.router";
 import {animalRouter} from "./admin/animal.router";
 import {imageRouter} from "./admin/image.router";
+import {maintenanceRouter} from "./admin/maintenance.router";
 
 export function buildRoutes(app: Express) {
     app.use("/auth", authRouter);
@@ -17,4 +18,5 @@ export function buildRoutes(app: Express) {
     app.use("/admin/ticket-type", ticketTypeRouter);
     app.use("/admin/animal", animalRouter);
     app.use("/admin/image", imageRouter);
+    app.use("/admin/maintenance", maintenanceRouter);
 }

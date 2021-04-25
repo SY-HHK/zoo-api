@@ -64,6 +64,7 @@ userRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function
 
 /**
  * Delete a user by id
+ * @return void
  */
 userRouter.delete("/delete/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);

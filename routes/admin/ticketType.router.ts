@@ -8,7 +8,7 @@ const ticketTypeRouter = express.Router();
 
 /**
  * Create a simple ticket
- * @return ticket
+ * @return ticketType
  */
 ticketTypeRouter.post("/create", adminMiddleware, async function(req, res) {
     const name: string = req.body.name;
@@ -29,7 +29,7 @@ ticketTypeRouter.post("/create", adminMiddleware, async function(req, res) {
 
 /**
  * Get a ticket by id
- * @return ticket
+ * @return ticketType
  */
 ticketTypeRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
@@ -44,7 +44,7 @@ ticketTypeRouter.get("/get/:id", adminMiddleware, checkIdMiddleware, async funct
 
 /**
  * Update a ticket by id
- * @return ticket
+ * @return ticketType
  */
 ticketTypeRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id, 10);
