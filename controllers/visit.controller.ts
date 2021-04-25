@@ -89,9 +89,15 @@ export class VisitController {
         });
     }
 
-    private isValid(ticket: TicketInstance): boolean {
+    private isValid(ticket: TicketInstance, nextArea: AreaInstance): boolean {
         const currentDate: Date = new Date();
-        return !(ticket.startDate.getTime() > currentDate.getTime() || ticket.endDate.getTime() < currentDate.getTime());
+        if (ticket.startDate.getTime() > currentDate.getTime() || ticket.endDate.getTime() < currentDate.getTime()) {
+            return false;
+        }
+        if (nextArea.openAt.getTime() > currentDate.getTime() || nextArea.closeAt.getTime() < currentDate.getTime()) {
+            return false;
+        }
+        return true;
     }
 
     private canVisit(areaOrder: number[], currentArea: number, nextArea: number): boolean {
