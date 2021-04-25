@@ -15,6 +15,7 @@ export interface TicketProps {
     id: number;
     startDate: Date;
     endDate: Date;
+    active?: boolean;
 }
 
 export interface TicketCreationProps extends Optional<TicketProps, "id"> {}
@@ -40,6 +41,9 @@ export default function(sequelize: Sequelize): ModelCtor<TicketInstance> {
         },
         endDate: {
             type: DataTypes.DATE
+        },
+        active: {
+            type: DataTypes.BOOLEAN
         }
     }, {
         freezeTableName: true,
