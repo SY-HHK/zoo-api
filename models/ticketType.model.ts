@@ -12,7 +12,7 @@ export interface TicketTypeProps {
     id: number;
     name: string;
     price: number;
-    data: JSON;
+    data: any;
 }
 
 export interface TicketTypeCreationProps extends Optional<TicketTypeProps, "id"> {}
