@@ -10,6 +10,7 @@ import {AreaInstance} from "./area.model";
 
 export interface AnimalProps {
     id: number;
+    name: string;
     species: string;
     journal: string;
 }
@@ -27,6 +28,9 @@ export default function(sequelize: Sequelize): ModelCtor<AnimalInstance> {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
+        },
+        name: {
+            type: DataTypes.STRING
         },
         species: {
             type: DataTypes.STRING
