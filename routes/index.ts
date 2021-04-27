@@ -24,8 +24,7 @@ export function buildRoutes(app: Express) {
     app.use("/admin/animal", animalRouter);
     app.use("/admin/image", imageRouter);
     app.use("/admin/maintenance", maintenanceRouter);
-    app.use("/admin/area", maintenanceRouter);
-    app.use("/admin/area", areaRouter);
     app.use("/admin/area-type", areaTypeRouter);
+    app.use("/admin/area", areaRouter);
     app.use("/admin/admin", adminRouter);
 }
