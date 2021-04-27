@@ -17,8 +17,8 @@ export interface AreaProps {
     description: string;
     capacity: number;
     duration: number;
-    openAt: Date;
-    closeAt: Date;
+    openAt: number;
+    closeAt: number;
     handicapAccess: boolean;
     journal: string;
 }
@@ -32,8 +32,8 @@ export interface AreaInstance extends Model<AreaProps, AreaCreationProps>, AreaP
     addImage: HasManyAddAssociationsMixin<ImageInstance, "id">,
     getMaintenances: HasManyGetAssociationsMixin<MaintenanceInstance>,
     addMaintenance: HasManyAddAssociationsMixin<MaintenanceInstance, "id">,
-    getType: BelongsToGetAssociationMixin<AreaTypeInstance>;
-    setType: BelongsToSetAssociationMixin<AreaTypeInstance, "id">;
+    getArea_type: BelongsToGetAssociationMixin<AreaTypeInstance>;
+    setArea_type: BelongsToSetAssociationMixin<AreaTypeInstance, "id">;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<AreaInstance> {
@@ -56,10 +56,10 @@ export default function(sequelize: Sequelize): ModelCtor<AreaInstance> {
             type: DataTypes.DOUBLE
         },
         openAt: {
-            type: DataTypes.DATE
+            type: DataTypes.FLOAT
         },
         closeAt: {
-            type: DataTypes.DATE
+            type: DataTypes.FLOAT
         },
         handicapAccess: {
             type: DataTypes.BOOLEAN
