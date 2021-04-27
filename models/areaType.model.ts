@@ -4,7 +4,7 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    BelongsToGetAssociationMixin, BelongsToSetAssociationMixin
+    BelongsToGetAssociationMixin, BelongsToSetAssociationMixin, HasManyGetAssociationsMixin, HasManyAddAssociationMixin
 } from "sequelize";
 import {AreaInstance} from "./area.model";
 
@@ -16,8 +16,8 @@ export interface AreaTypeProps {
 export interface AreaTypeCreationProps extends Optional<AreaTypeProps, "id"> {}
 
 export interface AreaTypeInstance extends Model<AreaTypeProps, AreaTypeCreationProps>, AreaTypeProps {
-    getArea: BelongsToGetAssociationMixin<AreaInstance>;
-    setArea: BelongsToSetAssociationMixin<AreaInstance, "id">;
+    getAreas: HasManyGetAssociationsMixin<AreaInstance>;
+    addArea: HasManyAddAssociationMixin<AreaInstance, 'id'>;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<AreaTypeInstance> {
