@@ -91,7 +91,7 @@ export class VisitController {
         if (ticket.startDate.getTime() > currentDate.getTime() || ticket.endDate.getTime() < currentDate.getTime()) {
             return false;
         }
-        if (nextArea !== undefined && (nextArea.openAt.getTime() > currentDate.getTime() || nextArea.closeAt.getTime() < currentDate.getTime())) {
+        if (nextArea !== undefined && (nextArea.openAt > currentDate.getHours()+(currentDate.getMinutes()/60) || nextArea.closeAt < currentDate.getHours()+(currentDate.getMinutes()/60))) {
             return false;
         }
         return true;
