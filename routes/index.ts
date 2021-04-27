@@ -11,7 +11,7 @@ import {maintenanceRouter} from "./admin/maintenance.router";
 import {visitRouter} from "./visit.router";
 import {adminRouter} from "./admin/admin.router";
 import {areaRouter} from "./admin/area.router";
-import {areaTypeRouter} from "./admin/areatype.router";
+import {areaTypeRouter} from "./admin/areaType.router";
 
 export function buildRoutes(app: Express) {
     app.use("/auth", authRouter);
@@ -24,8 +24,7 @@ export function buildRoutes(app: Express) {
     app.use("/admin/animal", animalRouter);
     app.use("/admin/image", imageRouter);
     app.use("/admin/maintenance", maintenanceRouter);
-    app.use("/admin/area", maintenanceRouter);
-    app.use("/admin/area", areaRouter);
     app.use("/admin/area-type", areaTypeRouter);
+    app.use("/admin/area", areaRouter);
     app.use("/admin/admin", adminRouter);
 }

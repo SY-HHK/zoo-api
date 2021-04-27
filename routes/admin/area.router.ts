@@ -15,17 +15,18 @@ areaRouter.post("/create", adminMiddleware, async function(req, res) {
     const description: string = req.body.description;
     const capacity: number = req.body.capacity;
     const duration: number = req.body.duration;
-    const openAt: Date = req.body.openAt;
-    const closeAt: Date = req.body.closeAt;
-    const handicapAccess: boolean = req.body.handicapAccess;
+    const openAt: number = req.body.openAt;
+    const closeAt: number = req.body.closeAt;
+    const handicapAccess: boolean = (req.body.handicapAccess === 'true');
     const journal: string = req.body.journal;
+    const areaTypeId: number = req.body.areaTypeId !== undefined ? parseInt(req.body.areaTypeId, 10) : 0;
 
-    if (name === undefined || description === undefined || capacity === undefined || duration === undefined || openAt === undefined || closeAt === undefined || handicapAccess === undefined || journal === undefined) {
+    if (name === undefined || description === undefined || capacity === undefined || duration === undefined || openAt === undefined || closeAt === undefined || handicapAccess === undefined || journal === undefined || areaTypeId === 0) {
         res.status(400).end();
         return;
     }
     const areaController: AreaController = await AreaController.getInstance();
-    const area: AreaInstance |null = await areaController.create({name, description, capacity, duration, openAt, closeAt, handicapAccess, journal});
+    const area: AreaInstance |null = await areaController.create({name, description, capacity, duration, openAt, closeAt, handicapAccess, journal}, areaTypeId);
     if (area === null) {
         res.status(409).end();
         return;
@@ -58,17 +59,18 @@ areaRouter.put("/update/:id", adminMiddleware, checkIdMiddleware, async function
     const description: string = req.body.description;
     const capacity: number = req.body.capacity;
     const duration: number = req.body.duration;
-    const openAt: Date = req.body.openAt;
-    const closeAt: Date = req.body.closeAt;
-    const handicapAccess: boolean = req.body.handicapAccess;
+    const openAt: number = req.body.openAt;
+    const closeAt: number = req.body.closeAt;
+    const handicapAccess: boolean = (req.body.handicapAccess === 'true');
     const journal: string = req.body.journal;
+    const areaTypeId: number = req.body.areaTypeId !== undefined ? parseInt(req.body.areaTypeId, 10) : 0;
 
-    if (name === undefined || description === undefined || capacity === undefined || duration === undefined || openAt === undefined || closeAt === undefined || handicapAccess === undefined || journal === undefined ) {
+    if (name === undefined || description === undefined || capacity === undefined || duration === undefined || openAt === undefined || closeAt === undefined || handicapAccess === undefined || journal === undefined || areaTypeId === 0) {
         res.status(400).end();
         return;
     }
     const areaController: AreaController = await AreaController.getInstance();
-    const area: AreaInstance | null = await areaController.update(id, {name, description, capacity, duration, openAt, closeAt, handicapAccess, journal});
+    const area: AreaInstance | null = await areaController.update(id, {name, description, capacity, duration, openAt, closeAt, handicapAccess, journal}, areaTypeId);
     if (area === null) {
         res.status(409).end();
         return;
