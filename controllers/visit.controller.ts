@@ -97,13 +97,16 @@ export class VisitController {
     }
 
     private canVisit(areaOrder: number[], currentArea: number | undefined, nextArea: number): boolean {
-        if (currentArea === undefined) currentArea = -1;
+        console.log(currentArea);
+        if (currentArea === null || currentArea === undefined) {
+            return areaOrder.indexOf(nextArea) === 0;
+        }
         if (areaOrder.indexOf(currentArea) === -1) {
             return false;
         }
-        if (areaOrder.indexOf(currentArea) === areaOrder.length) {
-            return true;
+        if (areaOrder.indexOf(currentArea) === areaOrder.length-1) {
+            return false;
         }
-        return areaOrder[areaOrder.indexOf(currentArea)] === nextArea;
+        return areaOrder[areaOrder.indexOf(currentArea)+1] === nextArea;
     }
 }
