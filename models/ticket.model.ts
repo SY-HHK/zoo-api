@@ -16,6 +16,7 @@ export interface TicketProps {
     startDate: Date;
     endDate: Date;
     active?: boolean;
+    currentAreaId?: number;
 }
 
 export interface TicketCreationProps extends Optional<TicketProps, "id"> {}
@@ -25,8 +26,6 @@ export interface TicketInstance extends Model<TicketProps, TicketCreationProps>,
     getUser: BelongsToGetAssociationMixin<UserInstance>;
     setTicket_type: BelongsToSetAssociationMixin<TicketTypeInstance, "id">;
     getTicket_type: BelongsToGetAssociationMixin<TicketTypeInstance>;
-    setCurrentArea: BelongsToSetAssociationMixin<AreaInstance, 'id'>;
-    getCurrentArea: BelongsToGetAssociationMixin<AreaInstance>;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<TicketInstance> {
@@ -44,6 +43,9 @@ export default function(sequelize: Sequelize): ModelCtor<TicketInstance> {
         },
         active: {
             type: DataTypes.BOOLEAN
+        },
+        currentAreaId: {
+            type: DataTypes.BIGINT
         }
     }, {
         freezeTableName: true,

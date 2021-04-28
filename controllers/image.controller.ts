@@ -35,7 +35,7 @@ export class ImageController {
             return null;
         }
         const images: ImageInstance[] = await area.getImages();
-        props.path = this.rootDir+'/resources/area'+areaId+'-image'+(images.length+1);
+        props.path = this.rootDir+'/resources/area'+areaId+'-image'+(images.length+1)+'.png';
         const isSaved: boolean = await this.saveImage(base64, props.path);
         if (!isSaved) {
             return null;

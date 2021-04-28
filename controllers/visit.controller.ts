@@ -67,13 +67,12 @@ export class VisitController {
             return false;
         }
         const ticketType: TicketTypeInstance = await ticket.getTicket_type();
-        const currentArea: AreaInstance = await ticket.getCurrentArea();
         if (ticketType.data.areaOrder !== undefined) {
-            if (!this.canVisit(ticketType.data.areaOrder, currentArea.id, nextArea)) {
+            if (!this.canVisit(ticketType.data.areaOrder, ticket.currentAreaId, nextArea)) {
                 return false;
             }
         }
-        await ticket.setCurrentArea(nextAreaInstance);
+        ticket.currentAreaId = nextAreaInstance.id;
         await ticket.save();
         return true;
     }
@@ -87,17 +86,18 @@ export class VisitController {
     }
 
     private isValid(ticket: TicketInstance, nextArea?: AreaInstance): boolean {
-        const currentDate: Date = new Date();
+        const currentDate: Date = new Date(Date.now());
         if (ticket.startDate.getTime() > currentDate.getTime() || ticket.endDate.getTime() < currentDate.getTime()) {
             return false;
         }
-        if (nextArea !== undefined && (nextArea.openAt.getTime() > currentDate.getTime() || nextArea.closeAt.getTime() < currentDate.getTime())) {
+        if (nextArea !== undefined && (nextArea.openAt > currentDate.getHours()+(currentDate.getMinutes()/60) || nextArea.closeAt < currentDate.getHours()+(currentDate.getMinutes()/60))) {
             return false;
         }
         return true;
     }
 
-    private canVisit(areaOrder: number[], currentArea: number, nextArea: number): boolean {
+    private canVisit(areaOrder: number[], currentArea: number | undefined, nextArea: number): boolean {
+        if (currentArea === undefined) currentArea = -1;
         if (areaOrder.indexOf(currentArea) === -1) {
             return false;
         }

@@ -1,4 +1,4 @@
-import {ModelCtor} from "sequelize";
+import {ModelCtor, Op} from "sequelize";
 import {SequelizeManager} from "../models";
 import {AreaInstance} from "../models/area.model";
 import {UserInstance} from "../models/user.model";
@@ -31,13 +31,13 @@ export class AdminController {
             where: {
                 active: true,
                 startDate: {
-                    $gte: new Date()
+                    [Op.lte]: new Date()
                 },
                 endDate: {
-                    $lte: new Date()
+                    [Op.gte]: new Date()
                 }
             },
-            group: ['area_id']
+            group: ['current_area_id']
         });
     }
 }

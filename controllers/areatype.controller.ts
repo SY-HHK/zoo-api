@@ -24,27 +24,18 @@ export class AreaTypeController {
         this.AreaType = AreaType;
     }
 
-    public async create(props: AreaTypeCreationProps, areaId: number):Promise<AreaTypeInstance | null> {
-        const area: AreaInstance | null = await this.Area.findOne({
+    public async create(props: AreaTypeCreationProps):Promise<AreaTypeInstance | null> {
+        const alreadyExist: AreaTypeInstance | null = await this.AreaType.findOne({
             where: {
-                id: areaId
+                name: props.name
             }
         });
-
-        if(area === null) {
+        if(alreadyExist !== null) {
             return null;
         }
-        const areaType: AreaTypeInstance | null = await this.AreaType.create({
+        return await this.AreaType.create({
             ...props
         });
-
-        if(areaType === null) {
-            return null;
-        }
-
-        await areaType.setArea(area);
-        return areaType
-
     }
 
     public async read(id: number): Promise<AreaTypeInstance | null> {
@@ -61,19 +52,20 @@ export class AreaTypeController {
                 id
             }
         });
-        if(areaType == null) return null;
-
+        if(areaType === null) {
+            return null;
+        }
         areaType.name = props.name;
-
         return await areaType.save();
     }
 
-    public async delete(id: number): Promise<AreaTypeInstance | null> {
-        return await this.AreaType.findOne({
-            where: {
-                id
-            }
-        });
+    public async delete(id: number): Promise<boolean> {
+        const areaType: AreaTypeInstance | null = await this.read(id);
+        if (areaType === null) {
+            return false;
+        }
+        await areaType.destroy();
+        return true;
     }
 
 }

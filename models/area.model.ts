@@ -4,12 +4,16 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    HasManyGetAssociationsMixin, HasManyAddAssociationsMixin, BelongsToGetAssociationMixin, BelongsToSetAssociationMixin
+    HasManyGetAssociationsMixin,
+    HasManyAddAssociationsMixin,
+    BelongsToGetAssociationMixin,
+    BelongsToSetAssociationMixin,
 } from "sequelize";
 import {AnimalInstance} from "./animal.model";
 import {AreaTypeInstance} from "./areaType.model";
 import {ImageInstance} from "./image.model";
 import {MaintenanceInstance} from "./maintenance.model";
+import {TicketInstance} from "./ticket.model";
 
 export interface AreaProps {
     id: number;
@@ -17,8 +21,8 @@ export interface AreaProps {
     description: string;
     capacity: number;
     duration: number;
-    openAt: Date;
-    closeAt: Date;
+    openAt: number;
+    closeAt: number;
     handicapAccess: boolean;
     journal: string;
 }
@@ -26,14 +30,16 @@ export interface AreaProps {
 export interface AreaCreationProps extends Optional<AreaProps, "id"> {}
 
 export interface AreaInstance extends Model<AreaProps, AreaCreationProps>, AreaProps {
+    getTickets: HasManyGetAssociationsMixin<TicketInstance>;
+    addTicket: HasManyAddAssociationsMixin<TicketInstance, "id">;
     getAnimals: HasManyGetAssociationsMixin<AnimalInstance>,
     addAnimal: HasManyAddAssociationsMixin<AnimalInstance, "id">,
     getImages: HasManyGetAssociationsMixin<ImageInstance>,
     addImage: HasManyAddAssociationsMixin<ImageInstance, "id">,
     getMaintenances: HasManyGetAssociationsMixin<MaintenanceInstance>,
     addMaintenance: HasManyAddAssociationsMixin<MaintenanceInstance, "id">,
-    getType: BelongsToGetAssociationMixin<AreaTypeInstance>;
-    setType: BelongsToSetAssociationMixin<AreaTypeInstance, "id">;
+    getArea_type: BelongsToGetAssociationMixin<AreaTypeInstance>;
+    setArea_type: BelongsToSetAssociationMixin<AreaTypeInstance, "id">;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<AreaInstance> {
@@ -56,10 +62,10 @@ export default function(sequelize: Sequelize): ModelCtor<AreaInstance> {
             type: DataTypes.DOUBLE
         },
         openAt: {
-            type: DataTypes.DATE
+            type: DataTypes.FLOAT
         },
         closeAt: {
-            type: DataTypes.DATE
+            type: DataTypes.FLOAT
         },
         handicapAccess: {
             type: DataTypes.BOOLEAN
