@@ -21,12 +21,12 @@ export interface TicketProps {
 export interface TicketCreationProps extends Optional<TicketProps, "id"> {}
 
 export interface TicketInstance extends Model<TicketProps, TicketCreationProps>, TicketProps {
+    setArea: BelongsToSetAssociationMixin<AreaInstance, "id">;
+    getArea: BelongsToGetAssociationMixin<AreaInstance>;
     setUser: BelongsToSetAssociationMixin<UserInstance, "id">;
     getUser: BelongsToGetAssociationMixin<UserInstance>;
     setTicket_type: BelongsToSetAssociationMixin<TicketTypeInstance, "id">;
     getTicket_type: BelongsToGetAssociationMixin<TicketTypeInstance>;
-    setCurrentArea: BelongsToSetAssociationMixin<AreaInstance, 'id'>;
-    getCurrentArea: BelongsToGetAssociationMixin<AreaInstance>;
 }
 
 export default function(sequelize: Sequelize): ModelCtor<TicketInstance> {

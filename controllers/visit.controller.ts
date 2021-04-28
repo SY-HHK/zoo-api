@@ -67,13 +67,13 @@ export class VisitController {
             return false;
         }
         const ticketType: TicketTypeInstance = await ticket.getTicket_type();
-        const currentArea: AreaInstance = await ticket.getCurrentArea();
+        const currentArea: AreaInstance = await ticket.getArea();
         if (ticketType.data.areaOrder !== undefined) {
             if (!this.canVisit(ticketType.data.areaOrder, currentArea.id, nextArea)) {
                 return false;
             }
         }
-        await ticket.setCurrentArea(nextAreaInstance);
+        await ticket.setArea(nextAreaInstance);
         await ticket.save();
         return true;
     }

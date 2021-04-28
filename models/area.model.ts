@@ -4,12 +4,16 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    HasManyGetAssociationsMixin, HasManyAddAssociationsMixin, BelongsToGetAssociationMixin, BelongsToSetAssociationMixin
+    HasManyGetAssociationsMixin,
+    HasManyAddAssociationsMixin,
+    BelongsToGetAssociationMixin,
+    BelongsToSetAssociationMixin,
 } from "sequelize";
 import {AnimalInstance} from "./animal.model";
 import {AreaTypeInstance} from "./areaType.model";
 import {ImageInstance} from "./image.model";
 import {MaintenanceInstance} from "./maintenance.model";
+import {TicketInstance} from "./ticket.model";
 
 export interface AreaProps {
     id: number;
@@ -26,6 +30,8 @@ export interface AreaProps {
 export interface AreaCreationProps extends Optional<AreaProps, "id"> {}
 
 export interface AreaInstance extends Model<AreaProps, AreaCreationProps>, AreaProps {
+    getTickets: HasManyGetAssociationsMixin<TicketInstance>;
+    addTicket: HasManyAddAssociationsMixin<TicketInstance, "id">;
     getAnimals: HasManyGetAssociationsMixin<AnimalInstance>,
     addAnimal: HasManyAddAssociationsMixin<AnimalInstance, "id">,
     getImages: HasManyGetAssociationsMixin<ImageInstance>,
