@@ -8,11 +8,11 @@ const visitRouter = express.Router();
 /**
  * Set your ticket to active
  */
-visitRouter.get('enter/:id', authMiddleware, async function(req, res) {
+visitRouter.get('/enter/:id', authMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id);
     const visitController: VisitController = await VisitController.getInstance();
     const isUpdated: boolean = await visitController.enter(id);
-    if (isUpdated) {
+    if (!isUpdated) {
         res.status(400).end();
         return;
     }
@@ -22,7 +22,7 @@ visitRouter.get('enter/:id', authMiddleware, async function(req, res) {
 /**
  * Set your current area
  */
-visitRouter.put('visit/:id', authMiddleware, async function(req, res) {
+visitRouter.put('/visit/:id', authMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id);
     const nextArea: number = req.body.nextArea;
     if (nextArea === undefined) {
@@ -31,7 +31,7 @@ visitRouter.put('visit/:id', authMiddleware, async function(req, res) {
     }
     const visitController: VisitController = await VisitController.getInstance();
     const isUpdated: boolean = await visitController.visit(id, nextArea);
-    if (isUpdated) {
+    if (!isUpdated) {
         res.status(400).end();
         return;
     }
@@ -41,11 +41,11 @@ visitRouter.put('visit/:id', authMiddleware, async function(req, res) {
 /**
  * Set your ticket to inactive
  */
-visitRouter.delete('leave/:id', authMiddleware, async function(req, res) {
+visitRouter.delete('/leave/:id', authMiddleware, async function(req, res) {
     const id: number = parseInt(req.params.id);
     const visitController: VisitController = await VisitController.getInstance();
     const isUpdated: boolean = await visitController.leave(id);
-    if (isUpdated) {
+    if (!isUpdated) {
         res.status(400).end();
         return;
     }
